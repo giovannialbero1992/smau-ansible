@@ -1,0 +1,6 @@
+---
+- name: Install git
+  apt: name=git state=present update_cache=yes
+
+- name: Install htop
+  apt: name=htop state=present update_cache=yes

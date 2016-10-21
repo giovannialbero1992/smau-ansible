@@ -2,9 +2,7 @@
 ---
 - name: This is a hello world project
   hosts: all
-  gather_facts: true
-
-  tasks:
-    - name: tell us all about the current host
-      debug:
-        var: ansible_processor
+  gather_facts: false
+  become: yes
+  roles:
+    - common
