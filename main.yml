@@ -1,0 +1,10 @@
+# This is the first ansible's project , a kind of Hello World :)
+---
+- name: This is a hello world project
+  hosts: all
+  gather_facts: true
+
+  tasks:
+    - name: tell us all about the current host
+      debug:
+        var: ansible_processor
