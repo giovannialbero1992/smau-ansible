@@ -1,0 +1,9 @@
+---
+- name: Install nginx
+  apt: name=nginx state=present
+
+- name: restart nginx
+  service: name=nginx state=restarted
+
+- name: Set web server to restart it automatically when server is rebooted
+  command: update-rc.d nginx defaults
