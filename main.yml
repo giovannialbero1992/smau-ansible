@@ -2,11 +2,21 @@
 ---
 - name: This is a hello world project
   hosts: all
-  gather_facts: false
+  gather_facts: true
   become: yes
 
+  vars_prompt:
+    - name: "project_directory"
+      prompt: "What is the destination folder of the project ?"
+      default: "/vagrant/web"
+
+    - name: "symfony_version"
+      prompt: "Which version do you want to use?"
+      default: "2.8.*"
+
+    - name: "user"
+      prompt: "User to use for deploy ?"
+      default: "vagrant"
+
   roles:
-    - common
-    - php
-    - nginx
-    - mysql
+    - symfony

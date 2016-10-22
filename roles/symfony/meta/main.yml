@@ -1,0 +1,7 @@
+#---
+#dependencies:
+#  - {role: common}
+#  - {role: php}
+#  - {role: nginx}
+#  - {role: mysql}
+#  - {role: composer}

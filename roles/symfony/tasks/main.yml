@@ -1,0 +1,23 @@
+---
+- name: retrieve information about project's directory
+  stat: path={{ project_directory }}
+  register: st
+
+- name: create destiny director
+  file: path={{ project_directory }} state=absent
+  when: st.stat.exists == true
+  become: true
+  become_user: '{{ user }}'
+
+- file: path={{ project_directory }} state=directory mode=0700
+  become: true
+  become_user: '{{ user }}'
+
+- name: Install symfony project
+  command: /usr/local/bin/composer create-project symfony/framework-standard-edition {{ project_directory }} "{{symfony_version}}" --no-interaction
+  become: true
+  become_user: '{{ user }}'
+  ignore_errors: true
+
+- name: start dev server
+  command: '{{ project_directory }}/app/console server:start 0.0.0.0'
