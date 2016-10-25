@@ -1,0 +1,18 @@
+---
+# This is the first ansible's project , a kind of Hello World :)
+- name: This is a hello world project
+  hosts: production
+  gather_facts: true
+  become: yes
+
+  vars_prompt:
+    - name: "project_name"
+      prompt: "What is the destination folder of the project ?"
+      default: "wordpress"
+
+    - name: "host_name"
+      prompt: "The host name ?"
+      default: "localhost"
+
+  roles:
+    - wordpress

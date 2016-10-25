@@ -1,0 +1,25 @@
+server {
+  charset utf-8;
+
+  listen 80 default_server;
+  server_name {{ host_name }};
+  root /var/www/{{ project_name }}/wordpress;
+
+  client_max_body_size 64M;
+
+  location ~ \.php$ {
+    try_files $uri =404;
+    fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+    fastcgi_index index.php;
+    include fastcgi_params;
+  }
+
+  location / {
+    index index.php index.html;
+    try_files $uri $uri/ /index.php?$args;
+  }
+
+  location ~ /\. {
+    deny all;
+  }
+}

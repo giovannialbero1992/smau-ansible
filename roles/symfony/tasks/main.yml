@@ -3,7 +3,7 @@
   stat: path={{ project_directory }}
   register: st
 
-- name: create destiny director
+- name: create destiny directory
   file: path={{ project_directory }} state=absent
   when: st.stat.exists == true
   become: true

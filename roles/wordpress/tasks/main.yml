@@ -1,0 +1,25 @@
+---
+- name: Create dest
+  file: state=directory name=/var/www/{{ project_name }}
+
+- name: Download Wordpress
+  unarchive: src=https://wordpress.org/latest.tar.gz dest=/var/www/{{ project_name }} copy=no
+
+- name: Change ownership of WordPress installation
+  file: path=/var/www/{{ project_name }}/ owner=www-data group=www-data state=directory recurse=yes
+
+- name: copy nginx config
+  template: src=default.j2 dest=/etc/nginx/sites-available/default
+
+- name: create link into sites-enabled
+  file: state=link src=/etc/nginx/sites-available/default dest=/etc/nginx/sites-enabled/default
+
+# this module is reqiured to execute next task
+- name: install python mysql bindings
+  apt: name=python-mysqldb state=installed
+
+- name: create database for wordpress site
+  mysql_db: name={{ project_name }} state=present
+
+- name: restart nginx
+  service: name=nginx state=restarted
