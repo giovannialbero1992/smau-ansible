@@ -1,0 +1,21 @@
+---
+- hosts : localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: start instance
+      ec2:
+        image: ami-26c43149
+        region: eu-central-1
+        instance_type: t2.micro
+        key_name: workshop_smau
+        instance_tags:  { Name: SMAU }
+        wait: yes
+      register: ec2
+
+    - name: Assign EIP
+      ec2_eip:
+        region: eu-central-1
+        instance_id: "{{ item.id }}"
+        public_ip: 52.57.135.214
+      with_items: "{{ ec2.instances }}"

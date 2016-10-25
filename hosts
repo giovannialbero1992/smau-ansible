@@ -1,2 +1,5 @@
 [localhost]
 127.0.0.1 ansible_user=vagrant ansible_password=vagrant
+
+[production]
+52.57.135.214 ansible_user=ubuntu ansible_ssh_private_key_file=workshop_smau.pem
